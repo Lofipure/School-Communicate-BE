@@ -61,10 +61,6 @@ const articleModel = connection.define("article", {
   mainText: {
     type: DB.DataTypes.TEXT,
     field: "main_text",
-  },
-  tags: {
-    type: DB.DataTypes.STRING,
-    filed: "tags"
   }
 });
 
@@ -89,8 +85,35 @@ const commentModel = connection.define("comment", {
   }
 });
 
+
+const tagModel = connection.define("tag", {
+  tId: {
+    type: DB.DataTypes.INTEGER,
+    filed: "t_id",
+    primaryKey: true,
+    autoIncrement: true,
+  },
+  tName: {
+    type: DB.DataTypes.STRING,
+    filed: "t_name",
+  }
+});
+
+const articleToTagModel = connection.define("article_to_model", {
+  tId: {
+    type: DB.DataTypes.INTEGER,
+    field: "t_id",
+  },
+  aId: {
+    type: DB.DataTypes.INTEGER,
+    field: "a_id",
+  }
+});
+
 module.exports = {
   userModel,
   articleModel,
-  commentModel
+  commentModel,
+  tagModel,
+  articleToTagModel,
 };
