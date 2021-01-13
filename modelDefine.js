@@ -35,7 +35,7 @@ const userModel = connection.define("user", {
   },
   location: {
     type: DB.DataTypes.STRING,
-    filed: "location"
+    field: "location"
   },
   password: {
     type: DB.DataTypes.STRING,
@@ -43,7 +43,7 @@ const userModel = connection.define("user", {
   },
   studentID: {
     type: DB.DataTypes.STRING,
-    filed: 'student_id'
+    field: 'student_id'
   }
 });
 
@@ -65,6 +65,10 @@ const articleModel = connection.define("article", {
   mainText: {
     type: DB.DataTypes.TEXT,
     field: "main_text",
+  },
+  articleTitle: {
+    type: DB.DataTypes.STRING,
+    field: 'article_title',
   }
 });
 
@@ -93,13 +97,17 @@ const commentModel = connection.define("comment", {
 const tagModel = connection.define("tag", {
   tId: {
     type: DB.DataTypes.INTEGER,
-    filed: "t_id",
+    field: "t_id",
     primaryKey: true,
     autoIncrement: true,
   },
   tName: {
     type: DB.DataTypes.STRING,
-    filed: "t_name",
+    field: "t_name",
+  },
+  tagDesc: {
+    type: DB.DataTypes.TEXT,
+    field: "tag_desc"
   }
 });
 
