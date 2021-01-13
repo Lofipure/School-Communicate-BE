@@ -42,8 +42,18 @@ async function getUserInfoByEmail(userEmail) {
   });
 }
 
+async function updateStudentInfo(obj) {
+  obj.college = obj.collegeAndMajor[0];
+  obj.major = obj.collegeAndMajor[1];
+  return await userModel.update(obj, {
+    where: {
+      email: obj.email
+    }
+  });
+}
 module.exports = {
   createUser,
   checkLoginStatus,
   getUserInfoByEmail,
+  updateStudentInfo
 };

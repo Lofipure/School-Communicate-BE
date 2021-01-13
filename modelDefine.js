@@ -40,6 +40,10 @@ const userModel = connection.define("user", {
   password: {
     type: DB.DataTypes.STRING,
     field: "password"
+  },
+  studentID: {
+    type: DB.DataTypes.STRING,
+    filed: 'student_id'
   }
 });
 

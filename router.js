@@ -40,4 +40,14 @@ router.get("/getUserInfoByEmail", async (ctx) => {
   ctx.body = res;
 });
 
+/*
+  @Function: 更新用户信息
+  @Params: obj
+  @Response: true false
+*/
+router.post("/updateUserInfo", async (ctx) => {
+  const res = await userMethod.updateStudentInfo(ctx.request.body);
+  ctx.body = res ? true : false;
+});
+
 module.exports = router;
