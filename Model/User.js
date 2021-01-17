@@ -51,6 +51,7 @@ async function updateStudentInfo(obj) {
     }
   });
 }
+
 module.exports = {
   createUser,
   checkLoginStatus,

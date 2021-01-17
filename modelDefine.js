@@ -111,7 +111,7 @@ const tagModel = connection.define("tag", {
   }
 });
 
-const articleToTagModel = connection.define("article_to_model", {
+const articleToTagModel = connection.define("article_to_tag", {
   tId: {
     type: DB.DataTypes.INTEGER,
     field: "t_id",
