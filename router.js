@@ -53,4 +53,15 @@ router.get('/getAllArticle', async (ctx) => {
   ctx.body = await articleMethod.getAllArticle();
 });
 
+router.get('/getArticleById', async (ctx) => {
+  ctx.body = await articleMethod.getArticleById(ctx.request.query.aId);
+});
+
+router.get('/getArticleByTagId', async (ctx) => {
+  ctx.body = await articleMethod.getArticlesByTagId(ctx.request.query.tId);
+});
+
+router.get('/removeArticle', async (ctx) => {
+  ctx.body = await articleMethod.removeArticle(ctx.request.query.aId);
+});
 module.exports = router;

@@ -84,10 +84,80 @@ async function getAllArticle() {
       article[index].dataValues.tags.push(tagName.tName);
     }
   }
-  console.log(article);
   return article;
 }
+async function getArticleById(articleId) {
+  let articleObj = await articleModel.findOne({
+    where: {
+      aId: articleId,
+    },
+  });
+  let authorId = articleObj.author;
+  let tagsName = [];
+  let tagObjs = await articleToTagModel.findAll({
+    where: {
+      aId: articleId,
+    },
+  });
+  for (let i = 0; i < tagObjs.length; ++i) {
+    let tagName = await tagModel.findOne({
+      where: {
+        tId: tagObjs[i].tId,
+      },
+    });
+    tagName = tagName.tName;
+    tagsName.push(tagName);
+  }
+  let authorInfo = await userModel.findOne({
+    where: {
+      uId: authorId,
+    },
+  });
+  articleObj.dataValues.authorInfo = authorInfo.dataValues;
+  articleObj.dataValues.tags = tagsName;
+  return articleObj;
+}
+
+async function getArticlesByTagId(tagId) {
+  let articlesId = await articleToTagModel.findAll({
+    where: {
+      tId: tagId,
+    },
+  });
+  let retArticleObjs = [];
+  for (let i = 0; i < articlesId.length; ++i) {
+    let articleTemp = await articleModel.findOne({
+      where: {
+        aId: articlesId[i].aId,
+      },
+    });
+    retArticleObjs.push(articleTemp.dataValues);
+  }
+  return retArticleObjs;
+}
+
+async function removeArticle(articleId) {
+  try {
+    let deleteArticle = await articleModel.destroy({
+      where: {
+        aId: articleId,
+      },
+    });
+    let deleteArticleToTag = await articleToTagModel.destroy({
+      where: {
+        aId: articleId,
+      },
+    });
+
+    return deleteArticle && deleteArticleToTag;
+  } catch (err) {
+    return false;
+  }
+}
 module.exports = {
+  removeArticle,
+  getArticlesByTagId,
+  getArticleById,
   createArticle,
   getAllArticlesByAuthorId,
   getAllArticle,
