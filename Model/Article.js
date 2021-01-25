@@ -154,6 +154,7 @@ async function removeArticle(articleId) {
     return false;
   }
 }
+
 module.exports = {
   removeArticle,
   getArticlesByTagId,

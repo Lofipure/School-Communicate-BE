@@ -1,15 +1,10 @@
-const {
-  tagModel,
-  articleModel,
-  articleToTagModel,
-} = require("../modelDefine");
-
+const { tagModel, articleModel, articleToTagModel } = require('../modelDefine');
 
 async function checkTag(tagName) {
   const checkResult = await tagModel.findAll({
     where: {
-      tName: tagName
-    }
+      tName: tagName,
+    },
   });
   return checkResult.length;
 }
@@ -27,7 +22,7 @@ async function getAllTag() {
   let result = await tagModel.findAll();
   let returnData = result.map((item) => ({
     label: item.tName,
-    value: item.tId
+    value: item.tId,
   }));
   return returnData;
 }
@@ -38,20 +33,52 @@ async function getAllTagDetailInfo() {
   for (let i = 0; i < result.length; ++i) {
     let articleNumberTemp = await articleToTagModel.findAll({
       where: {
-        tId: result[i].tId
-      }
+        tId: result[i].tId,
+      },
     });
     retData.push({
       tId: result[i].tId,
       tName: result[i].tName,
       tagDesc: result[i].tagDesc,
-      articleNumber: articleNumberTemp.length
+      articleNumber: articleNumberTemp.length,
     });
   }
 
   return retData;
 }
+
+async function removeTag(tagId) {
+  let deleteArticleIds = await articleToTagModel.findAll({
+    where: {
+      tId: tagId,
+    },
+  });
+  let removeTagStatus = await tagModel.destroy({
+    where: {
+      tId: tagId,
+    },
+  });
+  let nowStatus = true;
+  for (let i = 0; i < deleteArticleIds.length; ++i) {
+    let deleteArticleId = deleteArticleIds[i].getDataValue('aId');
+    let removeArticleToTagStatus = await articleToTagModel.destroy({
+      where: {
+        aId: deleteArticleId,
+      },
+    });
+    let removeArticleStatus = await articleModel.destroy({
+      where: {
+        aId: deleteArticleId,
+      },
+    });
+    nowStatus = removeArticleStatus && removeArticleToTagStatus;
+  }
+
+  return removeTagStatus && nowStatus;
+}
+
 module.exports = {
+  removeTag,
   createTag,
   checkTag,
   getAllTag,

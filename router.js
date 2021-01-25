@@ -2,6 +2,7 @@ const router = require('koa-router')();
 const userMethod = require('./Model/User');
 const articleMethod = require('./Model/Article');
 const tagMethod = require('./Model/Tag');
+const { tagModel } = require('./modelDefine');
 
 router.post('/register', async (ctx) => {
   console.log(ctx.request.body);
@@ -63,5 +64,14 @@ router.get('/getArticleByTagId', async (ctx) => {
 
 router.get('/removeArticle', async (ctx) => {
   ctx.body = await articleMethod.removeArticle(ctx.request.query.aId);
+});
+
+router.get('/getCommentsByArticleId', async (ctx) => {
+  ctx.body = '123';
+});
+
+router.get('/removeTag', async (ctx) => {
+  // console.log(ctx.request.query.tId);
+  ctx.body = await tagMethod.removeTag(ctx.request.query.tId);
 });
 module.exports = router;
