@@ -74,4 +74,12 @@ router.get('/removeTag', async (ctx) => {
   // console.log(ctx.request.query.tId);
   ctx.body = await tagMethod.removeTag(ctx.request.query.tId);
 });
+
+router.get('/articleGetGood', async (ctx) => {
+  ctx.body = await articleMethod.articleGetGood(ctx.request.query.aId);
+});
+
+router.get('/articleGetBad', async (ctx) => {
+  ctx.body = await articleMethod.articleGetBad(ctx.request.query.aId);
+});
 module.exports = router;

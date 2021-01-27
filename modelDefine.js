@@ -1,12 +1,12 @@
-const DB = require("sequelize");
-const connection = require("./dbConnection");
+const DB = require('sequelize');
+const connection = require('./dbConnection');
 
-const userModel = connection.define("user", {
+const userModel = connection.define('user', {
   uId: {
     primaryKey: true,
     type: DB.DataTypes.BIGINT,
     autoIncrement: true,
-    field: "u_id",
+    field: 'u_id',
   },
   name: {
     type: DB.DataTypes.STRING,
@@ -14,7 +14,7 @@ const userModel = connection.define("user", {
   },
   telephone: {
     type: DB.DataTypes.STRING,
-    field: "telephone",
+    field: 'telephone',
   },
   email: {
     type: DB.DataTypes.STRING,
@@ -23,103 +23,121 @@ const userModel = connection.define("user", {
   },
   college: {
     type: DB.DataTypes.STRING,
-    field: "college",
+    field: 'college',
   },
   major: {
     type: DB.DataTypes.STRING,
-    field: "major",
+    field: 'major',
   },
   grade: {
     type: DB.DataTypes.STRING,
-    field: "grade"
+    field: 'grade',
   },
   location: {
     type: DB.DataTypes.STRING,
-    field: "location"
+    field: 'location',
   },
   password: {
     type: DB.DataTypes.STRING,
-    field: "password"
+    field: 'password',
   },
   studentID: {
     type: DB.DataTypes.STRING,
-    field: 'student_id'
-  }
+    field: 'student_id',
+  },
 });
 
-const articleModel = connection.define("article", {
+const articleModel = connection.define('article', {
   aId: {
     type: DB.DataTypes.INTEGER,
-    field: "a_id",
+    field: 'a_id',
     primaryKey: true,
     autoIncrement: true,
   },
   author: {
     type: DB.DataTypes.INTEGER,
-    field: "author",
+    field: 'author',
   },
   shortDesc: {
     type: DB.DataTypes.TEXT,
-    field: "short_desc",
+    field: 'short_desc',
   },
   mainText: {
     type: DB.DataTypes.TEXT,
-    field: "main_text",
+    field: 'main_text',
   },
   articleTitle: {
     type: DB.DataTypes.STRING,
     field: 'article_title',
-  }
+  },
+  getGoodNumber: {
+    type: DB.DataTypes.INTEGER,
+    field: 'get_good_number',
+    defaultValue: 0,
+  },
+  getBadNumber: {
+    type: DB.DataTypes.INTEGER,
+    field: 'get_bad_number',
+    defaultValue: 0,
+  },
 });
 
-const commentModel = connection.define("comment", {
+const commentModel = connection.define('comment', {
   cId: {
     type: DB.DataTypes.INTEGER,
-    field: "c_id",
+    field: 'c_id',
     primaryKey: true,
     autoIncrement: true,
   },
   commenterId: {
     type: DB.DataTypes.INTEGER,
-    field: "commenter_id",
+    field: 'commenter_id',
   },
   commentText: {
     type: DB.DataTypes.TEXT,
-    field: "comment_text",
+    field: 'comment_text',
   },
   articleId: {
     type: DB.DataTypes.INTEGER,
-    field: "acticle_id",
-  }
+    field: 'acticle_id',
+  },
+  commentStatus: {
+    type: DB.DataTypes.STRING,
+    field: 'comment_status',
+  },
+  getGoodNumber: {
+    type: DB.DataTypes.INTEGER,
+    defaultValue: 0,
+    field: 'get_good_number',
+  },
 });
 
-
-const tagModel = connection.define("tag", {
+const tagModel = connection.define('tag', {
   tId: {
     type: DB.DataTypes.INTEGER,
-    field: "t_id",
+    field: 't_id',
     primaryKey: true,
     autoIncrement: true,
   },
   tName: {
     type: DB.DataTypes.STRING,
-    field: "t_name",
+    field: 't_name',
   },
   tagDesc: {
     type: DB.DataTypes.TEXT,
-    field: "tag_desc"
-  }
+    field: 'tag_desc',
+  },
 });
 
-const articleToTagModel = connection.define("article_to_tag", {
+const articleToTagModel = connection.define('article_to_tag', {
   tId: {
     type: DB.DataTypes.INTEGER,
-    field: "t_id",
+    field: 't_id',
   },
   aId: {
     type: DB.DataTypes.INTEGER,
-    field: "a_id",
-  }
+    field: 'a_id',
+  },
 });
 
 module.exports = {

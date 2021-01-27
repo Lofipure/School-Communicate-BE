@@ -155,7 +155,48 @@ async function removeArticle(articleId) {
   }
 }
 
+async function articleGetGood(aId) {
+  // console.log(aId);
+  let nowNumber = await articleModel.findAll({
+    where: {
+      aId: aId,
+    },
+  });
+  nowNumber = nowNumber[0].getGoodNumber;
+  return await articleModel.update(
+    {
+      getGoodNumber: nowNumber + 1,
+    },
+    {
+      where: {
+        aId: aId,
+      },
+    },
+  );
+}
+
+async function articleGetBad(aId) {
+  let nowNumber = await articleModel.findAll({
+    where: {
+      aId: aId,
+    },
+  });
+  nowNumber = nowNumber[0].getBadNumber;
+  return await articleModel.update(
+    {
+      getBadNumber: nowNumber + 1,
+    },
+    {
+      where: {
+        aId: aId,
+      },
+    },
+  );
+}
+
 module.exports = {
+  articleGetGood,
+  articleGetBad,
   removeArticle,
   getArticlesByTagId,
   getArticleById,
