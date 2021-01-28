@@ -90,7 +90,7 @@ const commentModel = connection.define('comment', {
     autoIncrement: true,
   },
   commenterId: {
-    type: DB.DataTypes.INTEGER,
+    type: DB.DataTypes.STRING,
     field: 'commenter_id',
   },
   commentText: {
@@ -98,7 +98,7 @@ const commentModel = connection.define('comment', {
     field: 'comment_text',
   },
   articleId: {
-    type: DB.DataTypes.INTEGER,
+    type: DB.DataTypes.STRING,
     field: 'acticle_id',
   },
   commentStatus: {

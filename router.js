@@ -2,6 +2,7 @@ const router = require('koa-router')();
 const userMethod = require('./Model/User');
 const articleMethod = require('./Model/Article');
 const tagMethod = require('./Model/Tag');
+const commentMethod = require('./Model/Comment');
 const { tagModel } = require('./modelDefine');
 
 router.post('/register', async (ctx) => {
@@ -67,11 +68,10 @@ router.get('/removeArticle', async (ctx) => {
 });
 
 router.get('/getCommentsByArticleId', async (ctx) => {
-  ctx.body = '123';
+  ctx.body = await commentMethod.getCommentsByArticleId(ctx.request.query.aId);
 });
 
 router.get('/removeTag', async (ctx) => {
-  // console.log(ctx.request.query.tId);
   ctx.body = await tagMethod.removeTag(ctx.request.query.tId);
 });
 
@@ -81,5 +81,17 @@ router.get('/articleGetGood', async (ctx) => {
 
 router.get('/articleGetBad', async (ctx) => {
   ctx.body = await articleMethod.articleGetBad(ctx.request.query.aId);
+});
+
+router.post('/pushComment', async (ctx) => {
+  ctx.body = await commentMethod.pushComment(ctx.request.body);
+});
+
+router.get('/commentGetGood', async (ctx) => {
+  ctx.body = await commentMethod.commentGetGood(ctx.request.query.cId);
+});
+
+router.get('/getUserInfoByProviceCode', async (ctx) => {
+  ctx.body = await userMethod.getUserInfoByProviceCode(ctx.request.query.pCode);
 });
 module.exports = router;

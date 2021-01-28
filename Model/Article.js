@@ -60,7 +60,9 @@ async function createArticle(obj) {
 }
 
 async function getAllArticle() {
-  let article = await articleModel.findAll();
+  let article = await articleModel.findAll({
+    order: [['a_id', 'DESC']],
+  });
   for (let index = 0; index < article.length; index++) {
     article[index].dataValues.authorInfo = await userModel.findOne({
       where: {
