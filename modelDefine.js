@@ -45,6 +45,10 @@ const userModel = connection.define('user', {
     type: DB.DataTypes.STRING,
     field: 'student_id',
   },
+  avatar: {
+    type: DB.DataTypes.TEXT,
+    field: 'avatar',
+  },
 });
 
 const articleModel = connection.define('article', {

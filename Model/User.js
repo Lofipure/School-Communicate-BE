@@ -7,6 +7,8 @@ async function createUser(obj) {
     await userModel.create(obj);
     return true;
   } catch (err) {
+    // return false;
+    console.log(err);
     return false;
   }
 }
