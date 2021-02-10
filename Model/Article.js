@@ -8,7 +8,6 @@ const {
 const { getUserInfoByEmail } = require('./User');
 
 async function getAllArticlesByAuthorId(userEmail) {
-  console.log(userEmail);
   const authorInfo = await userModel.findAll({
     where: {
       email: userEmail,
@@ -69,7 +68,6 @@ async function getAllArticle() {
         u_id: article[index].author,
       },
     });
-    console.log(article[index].dataValues);
     article[index].dataValues.tags = [];
     let articleTagsId = await articleToTagModel.findAll({
       where: {
@@ -158,7 +156,6 @@ async function removeArticle(articleId) {
 }
 
 async function articleGetGood(aId) {
-  // console.log(aId);
   let nowNumber = await articleModel.findAll({
     where: {
       aId: aId,
@@ -196,7 +193,42 @@ async function articleGetBad(aId) {
   );
 }
 
+async function getGoodNumberFromEmail(email) {
+  const userInfo = await userModel.findOne({
+    where: {
+      email: email,
+    },
+  });
+  const uId = userInfo.getDataValue('uId');
+  const articlesInfo = await articleModel.findAll({
+    where: {
+      aId: uId,
+    },
+  });
+  let goodNumber = 0;
+  articlesInfo.forEach((item, index) => {
+    goodNumber += item.getDataValue('getGoodNumber');
+  });
+  return goodNumber;
+}
+
+async function getArticleNumberFromEmail(email) {
+  const userInfo = await userModel.findOne({
+    where: {
+      email: email,
+    },
+  });
+  const uId = userInfo.getDataValue('uId');
+  const articleInfos = await articleModel.findAll({
+    where: {
+      aId: uId,
+    },
+  });
+  return articleInfos.length;
+}
 module.exports = {
+  getArticleNumberFromEmail,
+  getGoodNumberFromEmail,
   articleGetGood,
   articleGetBad,
   removeArticle,

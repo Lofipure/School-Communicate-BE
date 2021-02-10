@@ -22,9 +22,7 @@ async function commentGetGood(cId) {
       cId: cId,
     },
   });
-  console.log(nowNumber);
   nowNumber = nowNumber.getGoodNumber;
-  console.log(nowNumber);
   return commentModel.update(
     {
       getGoodNumber: nowNumber + 1,

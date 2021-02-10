@@ -3,10 +3,8 @@ const userMethod = require('./Model/User');
 const articleMethod = require('./Model/Article');
 const tagMethod = require('./Model/Tag');
 const commentMethod = require('./Model/Comment');
-const { tagModel } = require('./modelDefine');
 
 router.post('/register', async (ctx) => {
-  console.log(ctx.request.body);
   const res = await userMethod.createUser(ctx.request.body);
   ctx.body = res;
 });
@@ -47,7 +45,6 @@ router.get('/getUserArticle', async (ctx) => {
   let ret = await articleMethod.getAllArticlesByAuthorId(
     ctx.request.query.email,
   );
-  console.log(ret);
   ctx.body = ret;
 });
 
@@ -93,5 +90,17 @@ router.get('/commentGetGood', async (ctx) => {
 
 router.get('/getUserInfoByProviceCode', async (ctx) => {
   ctx.body = await userMethod.getUserInfoByProviceCode(ctx.request.query.pCode);
+});
+
+router.get('/getGoodNumberFromEmail', async (ctx) => {
+  ctx.body = await articleMethod.getGoodNumberFromEmail(
+    ctx.request.query.email,
+  );
+});
+
+router.get('/getArticleNumberFromEmail', async (ctx) => {
+  ctx.body = await articleMethod.getArticleNumberFromEmail(
+    ctx.request.query.email,
+  );
 });
 module.exports = router;
