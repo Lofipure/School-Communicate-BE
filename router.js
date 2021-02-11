@@ -103,4 +103,8 @@ router.get('/getArticleNumberFromEmail', async (ctx) => {
     ctx.request.query.email,
   );
 });
+
+router.get('/getOrderedArticleList', async (ctx) => {
+  ctx.body = await articleMethod.getOrderedArticle();
+})
 module.exports = router;

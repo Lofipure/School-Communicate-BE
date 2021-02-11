@@ -226,7 +226,24 @@ async function getArticleNumberFromEmail(email) {
   });
   return articleInfos.length;
 }
+
+async function getOrderedArticle() {
+  let articleList = await articleModel.findAll({
+    order: [['get_good_number', 'DESC']],
+  });
+  for (let i = 0; i < articleList.length; ++i) {
+    let aId = articleList[i].getDataValue('author');
+    let authorInfo = await userModel.findOne({
+      where: {
+        uId: aId,
+      },
+    });
+    articleList[i].dataValues.authorInfo = authorInfo;
+  }
+  return articleList;
+}
 module.exports = {
+  getOrderedArticle,
   getArticleNumberFromEmail,
   getGoodNumberFromEmail,
   articleGetGood,

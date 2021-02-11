@@ -105,10 +105,6 @@ const commentModel = connection.define('comment', {
     type: DB.DataTypes.STRING,
     field: 'acticle_id',
   },
-  commentStatus: {
-    type: DB.DataTypes.STRING,
-    field: 'comment_status',
-  },
   getGoodNumber: {
     type: DB.DataTypes.INTEGER,
     defaultValue: 0,
