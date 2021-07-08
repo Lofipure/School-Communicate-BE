@@ -107,4 +107,5 @@ router.get('/getArticleNumberFromEmail', async (ctx) => {
 router.get('/getOrderedArticleList', async (ctx) => {
   ctx.body = await articleMethod.getOrderedArticle();
 });
+
 module.exports = router;
